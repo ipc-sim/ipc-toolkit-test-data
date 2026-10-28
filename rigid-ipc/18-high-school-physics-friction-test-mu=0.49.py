@@ -18,7 +18,8 @@ def configure(scene):
     s.friction_coefficient = 0.49
     s.static_friction_speed_bound = 1e-05
     s.friction_iterations = -1
-    s.velocity_conv_tol = 0.0001
+    s.momentum_balance_tol = 1e-05
+    s.velocity_conv_tol = 1e-07
 
     # Match Rigid IPC's Newton solver: a 3000-iteration budget, and accept
     # the last feasible iterate rather than aborting on non-convergence.

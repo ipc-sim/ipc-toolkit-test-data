@@ -36,4 +36,4 @@ def configure(scene):
     s.abort_on_convergence_failure = False
 
     scene.velocity('cylinder').rotation = np.array([0.0, 0.7853981633974483, 0.0])
-    scene.body('cylinder').external_force = ipctk.Pose(np.array([0.0, 0.0, 0.0]), np.array([0.0, 5.235987755982989, 0.0]))
+    scene.body('cylinder').external_force = ipctk.Pose(np.array([0.0, 0.0, 0.0]), np.array([0.0, 1570.7963267948967, 0.0]))
