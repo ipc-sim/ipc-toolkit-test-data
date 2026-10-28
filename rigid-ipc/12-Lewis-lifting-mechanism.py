@@ -22,6 +22,10 @@ def configure(scene):
     s = scene.settings
     s.gravity = np.array([0.0, -9.8, 0.0])
     s.friction_coefficient = 0.7
+    # The lift hangs on static friction, so we lag friction to convergence
+    # rather than accept a single lagged solve per step.
+    s.friction_iterations = -1
+    s.momentum_balance_tol = 1e-4
 
     # The center slides against the packing pieces with less friction than
     # the pieces grip the stone, so pulling harder only wedges the pieces
