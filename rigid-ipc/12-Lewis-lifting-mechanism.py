@@ -21,7 +21,16 @@ is_dof_fixed = {
 def configure(scene):
     s = scene.settings
     s.gravity = np.array([0.0, -9.8, 0.0])
-    s.friction_coefficient = 0.3
+    s.friction_coefficient = 0.7
+
+    # The center slides against the packing pieces with less friction than
+    # the pieces grip the stone, so pulling harder only wedges the pieces
+    # tighter instead of dragging them up and out of the hole.
+    # friction_pairs returns a copy, so we assign the whole list.
+    s.friction_pairs = [
+        ipctk.demo.Simulator.FrictionPair(scene.index('center'), scene.index('left'), 0.2),
+        ipctk.demo.Simulator.FrictionPair(scene.index('center'), scene.index('right'), 0.2),
+    ]
 
     # Match Rigid IPC's Newton solver: a 3000-iteration budget, and accept
     # the last feasible iterate rather than aborting on non-convergence.
@@ -35,3 +44,7 @@ def configure(scene):
 
     scene.velocity('center').position = np.array([0.0, 0.5, 0.0])
     scene.drive('center', ipctk.demo.KinematicDriver.velocity_driven(4.0))
+
+    for name in scene.names:
+        scene.body(name).density = 7870 # iron
+    scene.body('block').density = 2700 # limestone
